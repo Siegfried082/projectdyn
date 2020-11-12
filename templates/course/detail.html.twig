@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ parent() }}Votre cours{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <section id="detail">
+            <h2 class="my-5">{{ course.name }}</h2>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#profil">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#details">Détail</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#comments">Commentaires</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content my-4">
+                <div class="tab-pane fade show active" id="profil">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img src="{{ asset('img/sections/') ~ course.image }}" alt="{{ course.name }}">
+                        </div>
+                        <div class="col-md-7">
+                            <h4>Description</h4>
+                            <p>{{ course.smallDescription }}</p>
+                            <h4>Informations</h4>
+                            <p class="description">
+                                prix: {{ course.price }}€<br>
+                                Durée: {{ course.duration }} an{%  if course.duration > 1 %}s{% endif %}<br>
+                                Catégorie: {{ course.category.name }}<br>
+                                Horaire: {{ course.schedule }}<br>
+                                Niveau: <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="{{ course.level.prerequisite }}">
+                                    {{course.level.name}}
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="details">
+                    <h4>Description complète</h4>
+                    <p>{{ course.fullDescription }}</p>
+                    <p><a href="{{ asset('img/pdf/') ~ course.program }}" class="btn btn-primary">Télécharger le programme</a></p>
+                </div>
+                <div class="tab-pane fade" id="comments">
+                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
