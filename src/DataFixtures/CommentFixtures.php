@@ -14,28 +14,24 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-       $faker = Factory::create();
-       $users = $manager->getRepository(User::class)->findAll();
-       $courses = $manager->getRepository(Course::class)->findAll();
+        $faker = Factory::create();
+        $course = $manager->getRepository(Course::class)->findAll();
+        $author = $manager->getRepository(User::class)->findAll();
 
-       for($i = 1; $i <= 60; $i++) {
-           $comment = new Comment();
-           $comment->setCreatedAt($faker->dateTimeBetween('now'));
-           $comment->setRating($faker->numberBetween(1, 5));
-           $comment->setContent($faker->paragraph());
-           $comment->setAuthor($users[$faker->numberBetween(0, count($users) -1)]);
-           $comment->setCourse($courses[$faker->numberBetween(0, count($courses) -1)]);
-           $manager->persist($comment);
-       }
-       $manager->flush();
+        for ($i = 1; $i <=20 ; $i++){
+            $comment = new Comment();
+            $comment->setAuthor($author[$faker->numberBetween(0,count($author)-1)])
+                ->setCourse($course[$faker->numberBetween(0,count($course)-1)])
+                ->setCreatedAt($faker->dateTimeBetween('-15 days','now'))
+                ->setContent($faker->paragraphs(2,true))
+                ->setRating($faker->numberBetween(1,5));
+
+            $manager->persist($comment);
+        }
+
+        $manager->flush();
     }
 
-    /**
-     * This method must return an array of fixtures classes
-     * on which the implementing class depends on
-     *
-     * @return class-string[]
-     */
     public function getDependencies()
     {
         return [

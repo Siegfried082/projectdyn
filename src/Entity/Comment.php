@@ -22,7 +22,6 @@ class Comment
      */
     private $createdAt;
 
-
     /**
      * @ORM\Column(type="integer")
      */

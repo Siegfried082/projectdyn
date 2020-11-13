@@ -33,16 +33,14 @@
     color: red;
 }
 
+/* section height */
+.height{
+    height: 430px;
+}
+
 /* Courses */
 #courses {
     min-height: 650px;
-}
-
-/* Menu dropdown user */
-.avatar-mini {
-    width: 40px;
-    border-radius: 50%;
-    filter: grayscale(100%);
 }
 
 footer {
@@ -52,13 +50,6 @@ footer {
     text-align: center;
 }
 
-/* menu connexion */
-.avatar-mini {
-    width: 40px;
-    border-radius: 50%;
-    filter: grayscale(100%);
-}
-
 footer h4 {
     padding-bottom: 1.2rem;
 }
@@ -66,4 +57,27 @@ footer h4 {
 footer a {
     padding: 1rem;
     font-size: 1.2rem;
+}
+
+footer a:hover {
+    text-decoration: none;
+}
+
+.avatar-mini {
+    width: 40px;
+    border-radius: 50%;
+    filter: grayscale(100%);
+}
+
+/* Comments */
+
+.avatar-comments {
+    width: 60px;
+    border-radius: 50%;
+}
+
+.media-border:not(:last-child) {
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px lightgray solid;
 }

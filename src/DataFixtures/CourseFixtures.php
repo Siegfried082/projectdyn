@@ -51,7 +51,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             CourseCategoryFixtures::class,
-            CourseLevelFixtures::class,
+            CourseLevelFixtures::class
         ];
     }
 }
