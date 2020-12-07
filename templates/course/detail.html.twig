@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ parent() }}Votre cours{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <section id="detail height">
+            <h2 class="my-5">{{ course.name }}</h2>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#profil">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#details">Détail</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#comments">Commentaires &nbsp;<span
+                                class="badge badge-primary">{{ course.comments.count }}</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#addComment">Ajouter un commentaire</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content my-4">
+                <div class="tab-pane fade show active" id="profil">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img src="{{ asset('img/sections/') ~ course.image }}" alt="{{ course.name }}">
+                        </div>
+                        <div class="col-md-7">
+                            <h4>Description</h4>
+                            <p>{{ course.smallDescription }}</p>
+                            <h4>Informations</h4>
+                            <p class="description">
+                                prix: {{ course.price }}€<br>
+                                Durée: {{ course.duration }} an{% if course.duration > 1 %}s{% endif %}<br>
+                                Catégorie: {{ course.category.name }}<br>
+                                Horaire: {{ course.schedule }}<br>
+                                Niveau:
+                                <button type="button" class="btn btn-secondary" data-toggle="tooltip"
+                                        data-placement="bottom" title="{{ course.level.prerequisite }}">
+                                    {{ course.level.name }}
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="details">
+                    <h4>Description complète</h4>
+                    <p>{{ course.fullDescription }}</p>
+                    <p><a href="" class="btn btn-primary">Télécharger le programme</a></p>
+                </div>
+                <div class="tab-pane fade" id="comments">
+                    {% if course.comments %}
+                        {% for comment in course.comments %}
+                            {# <p>{{ comment.content }} {{ comment.createdAt|date('d/m/Y') }}</p> #}
+                            <div class="media media-border">
+                                <img src="{{ asset('img/avatar/') ~ comment.author.image }}"
+                                     class="mr-3 align-self-center avatar-comments" alt="{{ comment.author.lastname }}">
+                                <div class="media-body">
+                                    <h5 class="mt-0">{{ comment.author.firstname }} {{ comment.author.lastname }} <br>
+                                        <small class="text-muted">Ajouté
+                                            le {{ comment.createdAt|date('d/m/Y') }}</small></h5>
+                                    {# Système de notation en étoile #}
+                                    <span>
+                                        {# Inclusion du partial avec passage de paramètre #}
+                                        {% include 'partials/rating.html.twig' with {'rating' : comment.rating} %}
+                                    </span>
+                                    <p>
+                                        {{ comment.content }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% if course.comments.count == 0 %}
+                            <p>Ce cours n'a pas de commentaire</p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="tab-pane fade" id="addComment">
+                    <h4>Postez votre commentaire</h4>
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <button type="submit" class="btn btn-outline-secondary">Valider votre commentaire</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+

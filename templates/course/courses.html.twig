@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Nos cours{% endblock %}
+
+{% block body %}
+    <!-- Banner -->
+    <div class="banner">
+    </div>
+    <!-- End Banner -->
+
+    <main class="container">
+        <!-- Categories -->
+        <section id="courses">
+            <h2 class="my-5">Toutes nos catégories</h2>
+            <div class="row">
+                <!-- FILTERIZER CONTROLS -->
+                <div class="col-md-12 controls-filter">
+                    <ul>
+                        <!-- For filtering controls add -->
+                        <li data-filter="all" class="btn btn-outline-secondary"> Toutes les catégories </li>
+
+                        {% for category in categories %}
+                        <li data-filter="{{ category.id }}" class="btn btn-outline-secondary"> {{category.name}} </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- FILTERIZER COURSES -->
+                <div class="col-md-12 filter-container">
+                    <!-- Cards -->
+                    {% for course in courses %}
+                    <div class="col-md-4 filtr-item" data-category="{{ course.category.id }}" data-sort="value">
+                        <div class="card" style="min-height: 550px !important;">
+                            <div class="card-header">
+                                <h5 class="text-center text-uppercase">{{ course.name }}</h5>
+                            </div>
+                            <div class="card-body">
+                                    <img alt="" src="{{ asset('img/sections/') ~ course.image}}">
+                                <p class="card-text">
+                                <p>{{ course.smallDescription }}</p>
+                                <a class="btn btn-secondary" href="{{ path('course', {'slug': course.slug}) }}">Voir cette formation...</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                <!-- End cards -->
+                </div>
+            </div>
+        </section>
+        <!-- End Categories -->
+    </main>
+{% endblock %}
+{% block javascripts %}
+<script>
+let filterizd = $('.filter-container').filterizr({
+    // options here
+});
+</script>
+{% endblock %}

@@ -1,12 +1,29 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}WebLearning - {% endblock %}</title>
+    <link rel="icon" href="{{ asset('img/design/favicon.png') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/icofont.min.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+{% include 'partials/header.html.twig' %}
+{% block body %}{% endblock %}
+{% include 'partials/footer.html.twig' %}
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/jquery.filterizr.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+{% block javascripts %}
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+{% endblock %}
+</body>
 </html>
+
