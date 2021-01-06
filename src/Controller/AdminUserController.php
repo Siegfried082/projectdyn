@@ -117,7 +117,7 @@ class AdminUserController extends AbstractController
 
         $user = $repositoryUsers->find($id);
         $coursesRegisters =  $user->getCourseRegisters();
-        return $this->render('admin/showUSers.html.twig', [
+        return $this->render('admin/showUsers.html.twig', [
             'user' => $user,
             'coursesRegisters' => $coursesRegisters
         ]);
