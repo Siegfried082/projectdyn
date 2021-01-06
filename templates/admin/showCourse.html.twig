@@ -1,0 +1,169 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="ik ik-file-text bg-blue"></i>
+                        <div class="d-inline">
+                            <h4>Cours</h4>
+                            <h5>{{ course.name }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="{{ asset('img/sections/') ~ course.image }}" class="" width="150">
+                            <h4 class="card-title mt-10">{{ course.name }}</h4>
+                        </div>
+                    </div>
+                    <hr class="mb-0">
+                    <div class="card-body">
+                        <h4 class="card-title mt-10">Informations principales</h4>
+                        <small class="text-muted d-block pt-10">Catégorie</small>
+                        <h6>{{ course.category.name }}</h6>
+                        <small class="text-muted d-block">Etat du cours </small>
+                        <h6><a href="{{ path('editPublish', {id:course.id}) }}">{{ course.isPublished ? '<span class="badge badge-pill badge-success mb-1">Publié</span>' : '<span class="badge badge-pill badge-danger mb-1">Non publié</span>' }}</a></h6>
+                        <small class="text-muted d-block">(Cliquez pour Afficher/Cacher le cours) </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-7">
+                <div class="card">
+                    <ul class="nav nav-pills custom-pills" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active show" id="pills-profile-tab" data-toggle="pill" href="#profil" role="tab" aria-controls="pills-profile" aria-selected="true">Informations principales</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-setting-tab" data-toggle="pill" href="#inscrits" role="tab" aria-controls="pills-inscrits" aria-selected="false">Liste des inscrits</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade active show" id="profil" role="tabpanel" aria-labelledby="pills-profile-tab">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3 col-6"> <strong>Horaire de cours</strong>
+                                        <br>
+                                        <p class="text-muted">{{ course.schedule }} (Durée: {{ course.duration }}H)</p>
+                                    </div>
+                                    <div class="col-md-3 col-6"> <strong>Prix d'inscription</strong>
+                                        <br>
+                                        <p class="text-muted">{{ course.price }} €</p>
+                                    </div>
+                                    <div class="col-md-3 col-6"> <strong>Création du cours</strong>
+                                        <br>
+                                        <p class="text-muted">{{ course.createdAt | date('d/m/Y à h:m') }}</p>
+                                    </div>
+                                    <div class="col-md-3 col-6"> <strong>Chargé de cours</strong>
+                                        <br>
+                                        <p class="text-muted">{{ course.teacher ? course.teacher.name : 'Aucun' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="inscrits" role="tabpanel" aria-labelledby="pills-inscrits-tab">
+                            <div class="card-body">
+                                <h3>Liste des élèves inscrits</h3>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12 text-center mt-10">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                {% if coursesRegisters.count %}
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Nom de l'élève</th>
+                                                        <th>Email</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for coursesRegister in coursesRegisters %}
+                                                        <tr>
+
+                                                            <td>{{ coursesRegister.user.name }}</td>
+                                                            <td>{{ coursesRegister.user.email }}</td>
+                                                            <td></td>
+                                                        </tr>
+                                                    {% endfor %}
+
+                                                    </tbody>
+                                                </table>
+                                                {% else %}
+                                                    <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                                                        <strong>Info!</strong> Aucun élève inscrit.
+                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                            <i class="ik ik-x"></i>
+                                                        </button>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <strong>Description</strong>
+                        <p>{{ course.fullDescription }}</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+                <h4 class="card-title mt-10">Commentaires</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <table id="advanced_table" class="table">
+                            <thead>
+                            <tr>
+                                <th class="nosort">#</th>
+                                <th>Auteur</th>
+                                <th>Date </th>
+                                <th>Message</th>
+                                <th>Evaluation</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for comment in course.comments %}
+                                <tr>
+                                    <td><img src="{{ asset('img/avatar/') ~ comment.author.image }}" class="table-user-thumb" alt=""></td>
+                                    <td>{{ comment.author.firstname }} {{ comment.author.lastname }}</td>
+                                    <td>{{ comment.createdAt|date('d/m/Y à h:m') }}</td>
+                                    <td>{{ comment.content}}</td>
+                                    <td>
+                                        <span>
+                                            {% include 'partials/ratingAdmin.html.twig' with {'rating' : comment.rating} %}
+                                        </span>
+                                    </td>
+                                    <td></td>
+
+
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

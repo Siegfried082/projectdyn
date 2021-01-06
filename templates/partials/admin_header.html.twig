@@ -1,0 +1,113 @@
+<div class="wrapper">
+    <header class="header-top" header-theme="light">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between">
+                <div class="top-menu d-flex align-items-center">
+                    <button type="button" class="btn-icon mobile-nav-toggle d-lg-none"><span></span></button>
+                    <button type="button" id="navbar-fullscreen" class="nav-link"><i class="ik ik-maximize"></i></button>
+                </div>
+                <div class="top-menu d-flex align-items-center">
+
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar" src="{{ asset('img/avatar/') ~ app.user.image }}" alt="{{ app.user.firstname }}" alt=""></a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <h6 class="text-center text-uppercase">{{ app.user.firstname }} {{ app.user.lastname }}</h6>
+                            <p class="text-muted text-center">Admin</p>
+
+                            <a class="dropdown-item" href="{{ path('profil') }}"><i class="ik ik-user dropdown-icon"></i> Profile</a>
+                            <a class="dropdown-item" href="{{ path('editprofil') }}"><i class="ik ik-settings dropdown-icon"></i> Settings</a>
+                            <a class="dropdown-item bg-danger" href="{{ path('app_logout') }}"><i class="ik ik-power dropdown-icon"></i> Logout</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-wrap">
+        <div class="app-sidebar colored">
+            <div class="sidebar-header">
+                <a class="header-brand">
+                    <span class="text">WebLearning - ACP</span>
+                </a>
+
+
+                <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
+            </div>
+            <div class="sidebar-content">
+                <div class="nav-container">
+                    <nav id="main-menu-navigation" class="navigation-main">
+                        <div class="nav-lavel">Navigation</div>
+                        <div class="nav-item active">
+                            <a href="{{ path('admin') }}"><i class="ik ik-home"></i><span>Dashboard</span></a>
+                        </div>
+
+                        <div class="nav-item">
+                            <a href="{{ path('home') }}"><i class="ik ik-chevron-right"></i><span>Retour vers le site</span></a>
+                        </div>
+
+                        <div class="nav-lavel">Gestion utilisateurs</div>
+                        <div class="nav-item has-sub">
+                            <a href="#"><i class="ik ik-users"></i><span>Utilisateurs</span></a>
+                            <div class="submenu-content">
+                                <a href="{{ path('acp_users') }}" class="menu-item">Liste des utilisateurs</a>
+                                <a href="{{ path('acp_admins') }}" class="menu-item">Liste des administrateurs</a>
+                            </div>
+                        </div>
+
+                        <div class="nav-item has-sub">
+                            <a href="#"><i class="ik ik-users"></i><span>Bannissement</span></a>
+                            <div class="submenu-content">
+                                <a href="{{ path('acp_addbans') }}" class="menu-item">Ajouter un banissement</a>
+                                <a href="{{ path('acp_bans') }}" class="menu-item">Listes des bannissements</a>
+                            </div>
+                        </div>
+
+                        <div class="nav-lavel">Gestion</div>
+                        <div class="nav-item has-sub">
+                            <a href="#"><i class="ik ik-file-text"></i><span>Cours</span></a>
+                            <div class="submenu-content">
+                                <a href="{{ path('acp_courses') }}" class="menu-item">Liste des cours</a>
+                                <a href="{{ path('acp_courses_add') }}" class="menu-item">Ajouter un cours</a>
+                            </div>
+                        </div>
+                        <div class="nav-item has-sub">
+                            <a href="#"><i class="ik ik-menu"></i><span>Commentaires</span></a>
+                            <div class="submenu-content">
+                                <a href="{{ path('acp_comments') }}" class="menu-item">Liste des commentaires</a>
+                                <a href="{{ path('acp_comments_report') }}" class="menu-item">Commentaires signalés</a>
+                            </div>
+                        </div>
+
+                        <div class="nav-item has-sub">
+                            <a href="#"><i class="ik ik-book"></i><span>Actualités</span></a>
+                            <div class="submenu-content">
+                                <a href="{{ path('acp_News') }}" class="menu-item">Liste des actualités</a>
+                                <a href="{{ path('acp_AddNews') }}" class="menu-item">Ajouter une actualité</a>
+                            </div>
+                        </div>
+                        <div class="nav-item">
+                            <a href="{{ path('acp_message') }}"><i class="ik ik-bell"></i><span>Notification</span></a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Info!</strong> {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="ik ik-x"></i>
+                    </button>
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Info!</strong> {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="ik ik-x"></i>
+                </button>
+            </div>
+            {% endfor %}

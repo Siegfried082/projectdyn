@@ -1,13 +1,13 @@
 <!-- Navigation -->
 {% block nav %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="#">Easy - Learning</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
                 aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarColor03">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto underlineEffects">
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
                 </li>
@@ -18,7 +18,7 @@
                     <a class="nav-link" href="#">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Our Teachers</a>
+                    <a class="nav-link" href="{{ path('teacher') }}">Our Teachers</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('contact') }}">Contact Us</a>
@@ -26,6 +26,9 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 {% if not app.user %}
+                    <li class="nav-item">
+                        <a href="{{ path('registration') }}" class="btn btn-secondary">S'enregistrer</a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ path('app_login') }}" class="btn btn-secondary">S'identifier</a>
                     </li>
@@ -36,13 +39,18 @@
                         {{ app.user.firstname }} {{ app.user.lastname }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Mon compte</a>
-                        <a class="dropdown-item" href="#">Modifier mon compte</a>
-                        <a class="dropdown-item" href="#">Modifier mon mot de passe</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <a class="dropdown-item text-uppercase" href="{{ path('admin') }}"><i class="icofont-edit"></i> Administration</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Mes commentaires</a>
+                        {% endif %}
+                        <a class="dropdown-item" href="{{ path('profil') }}"><i class="icofont-ui-user"></i> Mon compte</a>
+                        <a class="dropdown-item" href="{{ path('editprofil') }}"><i class="icofont-edit"></i> Modifier mon compte</a>
+                        <a class="dropdown-item" href="{{ path('editpassword') }}"><i class="icofont-ui-password"></i> Modifier mon mot de passe</a>
                         <div class="dropdown-divider"></div>
-                        <a href="{{ path('app_logout') }}" class="dropdown-item">Se déconnecter</a>
+                        <a class="dropdown-item" href="{{ path('cart') }}"><i class="icofont-cart"></i> Mon panier</a>
+                        <a class="dropdown-item" href="{{ path('comments') }}"><i class="icofont-comment"></i> Mes notifications <span class="badge badge-primary">{{ app.user.userMessages.count }}</span></a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ path('app_logout') }}" class="dropdown-item text-light bg-danger"><i class="icofont-logout"></i> Se déconnecter</a>
                     </div>
                 </li>
                 {% endif %}

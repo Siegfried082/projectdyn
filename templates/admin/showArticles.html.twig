@@ -1,0 +1,51 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="ik ik-file-text bg-blue"></i>
+                        <div class="d-inline">
+                            <h4>Article</h4>
+                            <h5>{{ new.name }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="{{ asset('img/news/') ~ new.image }}" class="" width="150">
+                            <h4 class="card-title mt-10">{{ new.name }}</h4>
+                        </div>
+                    </div>
+                    <hr class="mb-0">
+                    <div class="card-body">
+                        <h4 class="card-title mt-10">Informations principales</h4>
+                        <small class="text-muted d-block pt-10">Date de publication</small>
+                        <h6>{{ new.createdAt | date('d/m/Y à h:m') }}</h6>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <strong>Description</strong>
+                        <p>{{ new.content }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

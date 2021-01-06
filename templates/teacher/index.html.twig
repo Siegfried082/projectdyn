@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Profil{% endblock %}
+
+{% block body %}
+    <!-- Latest courses -->
+    <main class="container">
+        <h2 class="my-5">Liste des teachers</h2>
+        <div class="row">
+
+
+
+                {% for course in  courses %}
+                    <div class="col-md-4">
+                        <div class="bs-component">
+                            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                                <img class="img-fluid" src="{{ asset('img/avatar/') ~ course.teacher.image }}" alt="">
+                                <div class="card-header">{{ course.teacher.name }}</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Chargé du cours:</h5>
+                                    <h6 class="card-title">{{ course.name }}</h6>
+                                    <hr class="bg-light">
+                                    <p class="card-text"><i class="icofont-mail"></i> {{ course.teacher.email }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+        </div>
+    </main>
+
+{% endblock %}

@@ -18,16 +18,16 @@ class ContactService
 
     }
 
-    public function sendMail(Contact $contact)
+    public function sendMail(Contact $contact, $admin)
     {
         $message = (new \Swift_Message())
             ->setFrom($contact->getEmail())
-            ->setTo('regniernicolas37@gmail.com')
+            ->setTo($admin)
             ->setReplyTo($contact->getEmail())
             ->setSubject($contact->getSubject())
-            ->setBody($this->renderer->render('contact/emailbasic.html.twig',['contact' => $contact]),'text/html');
-        $this->mailer->send($message);
+            ->setBody($this->renderer->render('email/contact.html.twig',['contact' => $contact]),'text/html');
 
+        $this->mailer->send($message);
 
     }
 

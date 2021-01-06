@@ -15,12 +15,12 @@
             <div class="row">
                 <!-- FILTERIZER CONTROLS -->
                 <div class="col-md-12 controls-filter">
-                    <ul>
+                    <ul class="filter-fix">
                         <!-- For filtering controls add -->
-                        <li data-filter="all" class="btn btn-outline-secondary"> Toutes les catégories </li>
+                        <li data-filter="all" class="btn btn-outline-primary"> All </li>
 
                         {% for category in categories %}
-                        <li data-filter="{{ category.id }}" class="btn btn-outline-secondary"> {{category.name}} </li>
+                        <li data-filter="{{ category.id }}" class="btn btn-outline-primary"> {{category.name}} </li>
                         {% endfor %}
                     </ul>
                 </div>

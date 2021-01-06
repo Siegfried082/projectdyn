@@ -19,6 +19,16 @@ class CourseRepository extends ServiceEntityRepository
         parent::__construct($registry, Course::class);
     }
 
+
+    public function findTeachers()
+    {
+        $qb = $this->createQueryBuilder('course');
+        $qb->select('course')
+            ->where('course.teacher IS NOT NULL');
+
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Course[] Returns an array of Course objects
     //  */

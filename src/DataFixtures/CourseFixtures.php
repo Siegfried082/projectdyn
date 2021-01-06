@@ -36,6 +36,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
             $course->setImage($i.'.jpg');
             $course->setProgram($i.'.pdf');
             $course->setSchedule($faker->dayOfWeek);
+
             $manager->persist($course);
         }
         $manager->flush();

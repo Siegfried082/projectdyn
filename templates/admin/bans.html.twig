@@ -1,0 +1,44 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <h2 class="text-uppercase">Liste des bannis</h2>
+        <hr>
+        <div class="card">
+            <div class="card-body">
+                <table id="advanced_table" class="table">
+                    <thead>
+                    <tr>
+                        <th class="nosort">#</th>
+                        <th>Nom</th>
+                        <th>Date du bannissement</th>
+                        <th>Raison</th>
+                        <th>Actions</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for ban in bans %}
+                        <tr>
+                            <td><img src="{{ asset('/img/avatar/'~ ban.users.image) }}" class="table-user-thumb" alt=""></td>
+                            <td class="">{{ ban.users.firstName }} {{ ban.users.lastName }}</td>
+                            <td>{{ ban.date | date('d/m/Y')}}</td>
+                            <td>{{ ban.reason }}</td>
+                            <td>
+                                <a href="{{ path('showUser', {id:ban.users.id}) }}" class="btn btn-icon btn-success mb-1 text-light"><i class="ik ik-eye"></i></a>
+                                <a onclick="return confirm('Êtes-vous sûre de vouloir révoquer le bannissement ?')" href="{{ path('delbans', {id:ban.id}) }}" class="btn btn-icon btn-danger mb-1 text-light"><i class="ik ik-trash-2"></i></a>
+                            </td>
+                            <td></td>
+
+
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

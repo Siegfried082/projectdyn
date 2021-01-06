@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Profil{% endblock %}
+
+{% block body %}
+    <!-- Latest courses -->
+    <main class="container">
+        <div class="container">
+            <div class="main-body">
+
+                <h2 class="my-5">Mes notifications</h2>
+                {% if(app.user.userMessages | length == 0) %}
+                    <p class="text-center">Aucune notification pour le moment</p>
+                {% endif %}
+                {% for message in messages %}
+                <div class="list-group">
+                    <div href="#" class="list-group-item list-group-item-action flex-column align-items-start {{ message.comment ? 'bg-warning text-light' }}">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ message.comment ? 'Commentaire' : 'Notification' }}</h5>
+                            {% if(message.comment) %}
+                                <a href="{{ path('editMessage', {id:message.id}) }}" class="text-light"><i class="icofont-edit"></i></a>
+                            {% else %}
+                                <a onclick="return confirm('Êtes-vous sûre de vouloir supprimer cette notification ?')" href="{{ path('delMessage', {id:message.id}) }}" class="text-danger"><i class="icofont-trash"></i></a>
+                            {% endif %}
+                        </div>
+                        <hr>
+                        <p class="mb-1">{{ message.text }}</p>
+                        {% if(message.comment) %}
+                        <hr>
+                        <p class="mb-1">{{ message.comment.content }}</p>
+                        <small><b>Commentaire sur le course: </b> {{ message.comment.course.name }}</small>
+                        {% endif %}
+                    </div>
+                    <br>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

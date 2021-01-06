@@ -44,63 +44,47 @@
         <div class="section">
             <h2 class="my-5">Nos dernières actualités</h2>
             <div class="row">
+                {% for new in news %}
                 <div class="col-md-6">
                     <div class="media my-3 shadow-sm p-3 mb-5 bg-white rounded">
-                        <img alt="" class="float-left mr-3" src="http://placehold.it/100X100">
+                        <img alt="{{ new.name }}" class="float-left mr-3 news-w" src="{{ asset('img/news/') ~ new.image }}">
                         <div class="media-body">
-                            <h5 class="mt-0">Actualité 01 - 07/10/2019</h5>
-                            <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                                sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce
-                                condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in
-                                faucibus.</p>
-                            <a href="" class="float-right">Lire plus...</a>
+                            <h5 class="mt-0">{{ new.name }} - {{ new.createdAt | date('d/m/Y') }}</h5>
+                            <p>{{ new.content | slice(0, 120)}}...</p>
+                            <a class="float-right" data-toggle="modal" data-target="#{{ new.slug }}">Lire plus...</a>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
+            </div>
+        </div>
 
-                <div class="col-md-6">
-                    <div class="media my-3 shadow-sm p-3 mb-5 bg-white rounded">
-                        <img alt="" class="float-left mr-3" src="http://placehold.it/100X100">
-                        <div class="media-body">
-                            <h5 class="mt-0">Actualité 02 - 10/10/2019</h5>
-                            <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                                sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce
-                                condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in
-                                faucibus.</p>
-                            <a href="" class="float-right">Lire plus...</a>
-                        </div>
+        {% for new in news %}
+        <div class="modal fade" id="{{ new.slug }}" tabindex="-1" aria-labelledby="{{ new.slug }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ new.name }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="media my-3 shadow-sm p-3 mb-5 bg-white rounded">
-                        <img alt="" class="float-left mr-3" src="http://placehold.it/100X100">
-                        <div class="media-body">
-                            <h5 class="mt-0">Actualité 02 - 10/10/2019</h5>
-                            <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                                sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce
-                                condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in
-                                faucibus.</p>
-                            <a href="" class="float-right">Lire plus...</a>
-                        </div>
+                    <div class="modal-body">
+                            <p class="text-muted">{{ new.createdAt | date('d/m/Y à h:m') }}, par {{ new.name }}</p>
+                            <div class="media my-3">
+                                <img alt="{{ new.name }}" class="float-left mr-3 w-25" src="{{ asset('img/news/') ~ new.image }}">
+                                <div class="media-body">
+                                    <p>{{ new.content }}</p>
+                                </div>
+                            </div>
                     </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="media my-3 shadow-sm p-3 mb-5 bg-white rounded">
-                        <img alt="" class="float-left mr-3" src="http://placehold.it/100X100">
-                        <div class="media-body">
-                            <h5 class="mt-0">Actualité 02 - 10/10/2019</h5>
-                            <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                                sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce
-                                condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in
-                                faucibus.</p>
-                            <a href="" class="float-right">Lire plus...</a>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
+        {%endfor %}
         <!-- End Latest news -->
 
         <!-- Cool Links -->

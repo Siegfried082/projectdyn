@@ -1,0 +1,44 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-uppercase">Ajouter un cours</h2>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="card">
+            <div class="card-body">
+                {%if form is defined %}
+                    {{ form_start(form) }}
+
+                    {{form_errors(form)}}
+
+                    {{form_row(form.name,{ 'attr': {'class': 'form-control'} })}}
+                    {{form_row(form.category,{ 'attr': {'class': 'form-control'} })}}
+                    {{form_row(form.level,{ 'attr': {'class': 'form-control'} })}}
+                    {{form_row(form.teacher,{ 'attr': {'class': 'selectpicker', 'data-live-search': 'true'} })}}
+                    {{form_row(form.smallDescription,{ 'attr': {'class': 'form-control'} })}}
+                    {{form_row(form.fullDescription,{ 'attr': {'class': 'form-control'} })}}
+                    {{form_row(form.duration,{ 'attr': {'class': 'form-control'} })}}
+                    {{form_row(form.price,{ 'attr': {'class': 'form-control'} })}}
+                    {{form_row(form.isPublished,{ 'attr': {'class': 'form-control'} })}}
+                    {{form_row(form.image,{ 'attr': {'class': 'form-control'} })}}
+                    {{form_row(form.schedule,{ 'attr': {'class': 'form-control'} })}}
+                    {{form_row(form.program,{ 'attr': {'class': 'form-control'} })}}
+
+
+
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                    {{form_end(form)}}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

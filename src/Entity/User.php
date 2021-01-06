@@ -76,9 +76,33 @@ class User implements UserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Bans::class, mappedBy="users")
+     */
+    private $bans;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CourseRegister::class, mappedBy="user")
+     */
+    private $courseRegisters;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Course::class, mappedBy="teacher")
+     */
+    private $courses;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserMessage::class, mappedBy="user")
+     */
+    private $userMessages;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->bans = new ArrayCollection();
+        $this->courseRegisters = new ArrayCollection();
+        $this->courses = new ArrayCollection();
+        $this->userMessages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,11 +144,26 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
         return $this;
+    }
+
+    public function getRolesName(): string
+    {
+
+        $roles = $this->roles;
+
+        if ($roles[0] == 'ROLE_USER') {
+            $name = 'Utilisateur';
+        }
+        else if ($roles[0] == 'ROLE_ADMIN') {
+            $name = 'Administrateur';
+        }
+        return $name;
     }
 
     /**
@@ -157,6 +196,15 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getName(): ?string
+    {
+        $lastname= $this->lastname;
+        $firstname= $this->firstname;
+
+        $name = $firstname.' '.$lastname;
+        return $name;
     }
 
     public function getFirstname(): ?string
@@ -273,4 +321,128 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Bans[]
+     */
+    public function getBans(): Collection
+    {
+        return $this->bans;
+    }
+
+    public function addBan(Bans $ban): self
+    {
+        if (!$this->bans->contains($ban)) {
+            $this->bans[] = $ban;
+            $ban->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBan(Bans $ban): self
+    {
+        if ($this->bans->removeElement($ban)) {
+            // set the owning side to null (unless already changed)
+            if ($ban->getUsers() === $this) {
+                $ban->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourseRegister[]
+     */
+    public function getCourseRegisters(): Collection
+    {
+        return $this->courseRegisters;
+    }
+
+    public function addCourseRegister(CourseRegister $courseRegister): self
+    {
+        if (!$this->courseRegisters->contains($courseRegister)) {
+            $this->courseRegisters[] = $courseRegister;
+            $courseRegister->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourseRegister(CourseRegister $courseRegister): self
+    {
+        if ($this->courseRegisters->removeElement($courseRegister)) {
+            // set the owning side to null (unless already changed)
+            if ($courseRegister->getUser() === $this) {
+                $courseRegister->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Course[]
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(Course $course): self
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses[] = $course;
+            $course->setTeacher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(Course $course): self
+    {
+        if ($this->courses->removeElement($course)) {
+            // set the owning side to null (unless already changed)
+            if ($course->getTeacher() === $this) {
+                $course->setTeacher(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserMessage[]
+     */
+    public function getUserMessages(): Collection
+    {
+        return $this->userMessages;
+    }
+
+    public function addUserMessage(UserMessage $userMessage): self
+    {
+        if (!$this->userMessages->contains($userMessage)) {
+            $this->userMessages[] = $userMessage;
+            $userMessage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserMessage(UserMessage $userMessage): self
+    {
+        if ($this->userMessages->removeElement($userMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($userMessage->getUser() === $this) {
+                $userMessage->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+
 }

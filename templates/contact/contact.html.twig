@@ -4,10 +4,39 @@
 
 {% block body %}
     <main class="container">
+
         <section class="row">
+
             <div class="col-md-8 offset-md-2">
                 <h2 class="my-4">Remplissez le formulaire de contact</h2>
+
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Info!</strong> {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="ik ik-x"></i>
+                        </button>
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('danger') %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Info!</strong> {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="ik ik-x"></i>
+                        </button>
+                    </div>
+                {% endfor %}
                 {{ form_start(form) }}
+                <div class="form-group">
+                    <label for="userAdmin">Destinataire</label>
+                    <select class="form-control" id="userAdmin" name="userAdmin">
+                        {% for admin in admins %}
+                            <option value="{{ admin.email }}">{{ admin.name }}</option>
+                        {% endfor %}
+
+
+                    </select>
+                </div>
                 {{ form_widget(form) }}
                 <button type="submit" class="btn btn-outline-secondary">Envoyer</button>
                 {{ form_end(form) }}

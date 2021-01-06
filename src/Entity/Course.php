@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Course
 {
+    /** @var string|null */
+    public $captcha;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -91,9 +94,22 @@ class Course
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CourseRegister::class, mappedBy="course")
+     */
+    private $courseRegisters;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="courses")
+     */
+    private $teacher;
+
+
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->courseRegisters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -257,6 +273,7 @@ class Course
         return $this;
     }
 
+
     /**
      * @return Collection|Comment[]
      */
@@ -287,4 +304,64 @@ class Course
 
         return $this;
     }
+
+
+    public function GlobalRating(): int
+    {
+        $rating = 0;
+        $comments = $this->getComments();
+
+        foreach ($comments as $comment)
+        {
+            $rating += $comment->getRating();
+        }
+
+        $tot = $rating/count($comments);
+        return $tot;
+    }
+
+    /**
+     * @return Collection|CourseRegister[]
+     */
+    public function getCourseRegisters(): Collection
+    {
+        return $this->courseRegisters;
+    }
+
+    public function addCourseRegister(CourseRegister $courseRegister): self
+    {
+        if (!$this->courseRegisters->contains($courseRegister)) {
+            $this->courseRegisters[] = $courseRegister;
+            $courseRegister->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourseRegister(CourseRegister $courseRegister): self
+    {
+        if ($this->courseRegisters->removeElement($courseRegister)) {
+            // set the owning side to null (unless already changed)
+            if ($courseRegister->getCourse() === $this) {
+                $courseRegister->setCourse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTeacher(): ?User
+    {
+        return $this->teacher;
+    }
+
+    public function setTeacher(?User $teacher): self
+    {
+        $this->teacher = $teacher;
+
+        return $this;
+    }
+
+
+
 }

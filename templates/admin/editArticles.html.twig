@@ -1,0 +1,35 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-uppercase">Ajouter un article</h2>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="card">
+            <div class="card-body">
+                {%if form is defined %}
+                    {{ form_start(form) }}
+
+                    {{form_errors(form)}}
+
+                    {{form_row(form.name,{ 'attr': {'class': 'form-control'} })}}
+                    {{form_row(form.slug,{ 'attr': {'class': 'form-control'} })}}
+                    {{form_row(form.content,{ 'attr': {'class': 'form-control'} })}}
+                    {{form_row(form.image,{ 'attr': {'class': 'form-control'} })}}
+                    <p>{{ news.image }}</p>
+
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Editer</button>
+                    {{form_end(form)}}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

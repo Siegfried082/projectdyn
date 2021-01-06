@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connection!{% endblock %}
+
+{% block body %}
+    <form method="post" class="my-4">
+        <main class="container">
+            <section class="row">
+                <div class="col-md-6 offset-3">
+                    <h2 class="my-5">Inscription</h2>
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Info!</strong> {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <i class="ik ik-x"></i>
+                            </button>
+                        </div>
+                    {% endfor %}
+                    {% for message in app.flashes('danger') %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Info!</strong> {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <i class="ik ik-x"></i>
+                            </button>
+                        </div>
+                    {% endfor %}
+
+                    {% if not app.user %}
+                        {%if form is defined %}
+                            {{ form_start(form) }}
+                            {{ form_row(form.firstname) }}
+                            {{ form_row(form.lastname) }}
+                            {{ form_row(form.email) }}
+                            <br>
+                            {{ form_row(form.password) }}
+                            <hr>
+                            <button type="submit" class="btn btn-primary">S'enregistrer</button>
+                            {{form_end(form)}}
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </section>
+        </main>
+    </form>
+
+
+    {#
+    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+    See https://symfony.com/doc/current/security/remember_me.html
+
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" name="_remember_me"> Remember me
+        </label>
+    </div>
+    #}
+{% endblock %}
