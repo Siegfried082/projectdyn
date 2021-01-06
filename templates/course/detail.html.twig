@@ -92,18 +92,18 @@
                                             {% include 'partials/rating.html.twig' with {'rating' : comment.rating} %}
                                         </span>
                                         <p>
-                                            {% if app.user %}
                                                 {% if(comment.isDisabled) %}
                                                     <p class="badge btn-warning p-2">Ce message a été modéré par un modérateur.</p>
                                                 {% else %}
                                                     <p>{{ comment.content }}</p>
-                                                    {% if comment.report %}
-                                                        <p class="text-right text-muted"><i class="icofont-alarm"></i></p>
-                                                    {% else %}
-                                                        <h4 class="text-right"><a href="{{ path('reportComment', {id:comment.id}) }}" onclick="return confirm('Êtes-vous sûre de vouloir signaler ce commentaire ?')"><i class="icofont-alarm text-danger"></i></a></h4>
+                                                    {% if app.user %}
+                                                        {% if comment.report %}
+                                                            <p class="text-right text-muted"><i class="icofont-alarm"></i></p>
+                                                        {% else %}
+                                                            <h4 class="text-right"><a href="{{ path('reportComment', {id:comment.id}) }}" onclick="return confirm('Êtes-vous sûre de vouloir signaler ce commentaire ?')"><i class="icofont-alarm text-danger"></i></a></h4>
+                                                        {% endif %}
                                                     {% endif %}
                                                 {% endif %}
-                                            {% endif %}
                                         </p>
                                     </div>
                                 </div>
