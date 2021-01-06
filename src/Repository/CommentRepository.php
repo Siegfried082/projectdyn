@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @method Comment|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,7 +23,24 @@ class CommentRepository extends ServiceEntityRepository
     // /**
     //  * @return Comment[] Returns an array of Comment objects
     //  */
+
+    public function userCommentCourse(int $userId, int $courseId) : bool
+    {
+        $query = $this->createQueryBuilder('c')
+            ->where('c.author = :author')
+            ->andWhere('c.course= :course')
+            ->setParameter('author', $userId)
+            ->setParameter('course', $courseId)
+            ->getQuery()
+            ->getResult()
+            ;
+
+
+        return count($query) == 0;
+    }
+
     /*
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('c')

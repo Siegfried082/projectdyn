@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}WebLearning - Admin Panel{% endblock %}</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/icon-kit/dist/css/iconkit.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/ionicons/dist/css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/weather-icons/css/weather-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/c3/c3.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/dist/css/bootstrap-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/mohithg-switchery/dist/switchery.min.css') }}">
+
+
+
+    <link rel="stylesheet" href="{{ asset('admin/plugins/owl.carousel/dist/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/owl.carousel/dist/assets/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/dist/css/theme.min.css') }}">
+    <script src="{{ asset('admin/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+
+{% include 'partials/admin_header.html.twig' %}
+{% block body %}{% endblock %}
+{% include 'partials/admin_footer.html.twig' %}
+
+<script>window.jQuery || document.write('<script src="{{ asset('admin/js/vendor/jquery-3.3.1.min.js') }}"><\/script>')</script>
+<script src="{{ asset('admin/plugins/popper.js/dist/umd/popper.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/select2/dist/js/select2.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/select2/dist/js/select2.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+<script src="{{ asset('admin/dist/js/bootstrap-select.js') }}"></script>
+
+
+<script src="{{ asset('admin/plugins/screenfull/dist/screenfull.js') }}"></script>
+<script src="{{ asset('admin/plugins/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/moment/moment.js') }}"></script>
+<script src="{{ asset('admin/plugins/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/d3/dist/d3.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/c3/c3.min.js') }}"></script>
+<script src="{{ asset('admin/js/tables.js') }}"></script>
+<script src="{{ asset('admin/js/widgets.js') }}"></script>
+<script src="{{ asset('admin/js/charts.js') }}"></script>
+<script src="{{ asset('admin/dist/js/theme.min.js') }}"></script>
+<script src="{{ asset('admin/js/form-advanced.js') }}"></script>
+
+</body>
+</html>
+

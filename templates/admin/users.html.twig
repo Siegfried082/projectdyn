@@ -1,0 +1,56 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-uppercase">Liste des utilisateurs</h2>
+            </div>
+            <div class="col-md-6">
+                <a href="{{ path('acp_addUser') }}" class="btn btn-dark float-right"><i class="ik ik-edit-2"></i>Ajouter un utilisateur</a>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="card">
+            <div class="card-body">
+                <table id="advanced_table" class="table">
+                    <thead>
+                    <tr>
+                        <th class="nosort">#</th>
+                        <th>Nom</th>
+                        <th>Role</th>
+                        <th>Adresse email</th>
+                        <th>Date de création</th>
+                        <th>Dernière connexion</th>
+                        <th>Actions</th>
+                        <th>Statut du compte</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td><img src="{{ asset('/img/avatar/'~ user.image) }}" class="table-user-thumb" alt="{{ user.lastname }} {{ user.firstname }}"></td>
+                        <td>{{ user.lastname }} {{ user.firstname }}</td>
+                        <td>{{ user.getRolesName }}</td>
+                        <td>{{ user.email}}</td>
+                        <td>{{ user.createdAt | date('d/m/Y à h:m') }}</td>
+                        <td>{{ user.lastLogAt | date('d/m/Y à h:m') }}</td>
+                        <td>
+                            <a href="{{ path('showUser', {id:user.id}) }}" class="btn btn-icon btn-success mb-1 text-light"><i class="ik ik-eye"></i></a>
+                            <a onclick="return confirm('Êtes-vous sûre de vouloir supprimer cet utilisateur ?')" href="{{ path('delUser', {id:user.id}) }}" class="btn btn-icon btn-danger mb-1 text-light"><i class="ik ik-trash-2"></i></a>
+                        </td>
+
+                        <td><span class="badge badge-dark mb-1">{{ user.isDisabled ? 'Disable' : 'Active' }}</span></td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

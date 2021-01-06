@@ -20,11 +20,17 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 1; $i <=20 ; $i++){
             $comment = new Comment();
+            $report = $faker->numberBetween(0,1);
             $comment->setAuthor($author[$faker->numberBetween(0,count($author)-1)])
                 ->setCourse($course[$faker->numberBetween(0,count($course)-1)])
                 ->setCreatedAt($faker->dateTimeBetween('-15 days','now'))
                 ->setContent($faker->paragraphs(2,true))
-                ->setRating($faker->numberBetween(1,5));
+                ->setRating($faker->numberBetween(1,5))
+                ->setIsDisabled($report)
+                ->setReport($report);
+
+
+
 
             $manager->persist($comment);
         }

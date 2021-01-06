@@ -1,0 +1,39 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-uppercase">Gestion du commentaire: {{ comment.id }}</h2>
+                <h4>De {{ comment.author.name }}</h4>
+            </div>
+        </div>
+        <hr>
+        <div class="alert alert-dark alert-dismissible fade show" role="alert">
+            <strong>Info!</strong> Vous êtes sur le point de modérer un commentaire.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="ik ik-x"></i>
+            </button>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                {%if form is defined %}
+                    {{ form_start(form) }}
+
+                    {{form_errors(form)}}
+
+                    {{form_row(form.text,{ 'attr': {'class': 'form-control'} })}}
+
+
+
+
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                    {{form_end(form)}}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

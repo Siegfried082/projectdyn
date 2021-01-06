@@ -1,0 +1,148 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="ik ik-user bg-blue"></i>
+                        <div class="d-inline">
+                            <h4 class="text-uppercase">Profil utilisateur</h4>
+                            <h5>{{ user.firstname }} {{ user.lastname }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="{{ asset('img/avatar/') ~ user.image }}" class="rounded-circle" width="150">
+                            <h4 class="card-title mt-10">{{ user.firstname }} {{ user.lastname }}</h4>
+                        </div>
+                    </div>
+                    <hr class="mb-0">
+                    <div class="card-body">
+                        <h4 class="card-title mt-10">Informations principales</h4>
+                        <small class="text-muted d-block">Adresse Email </small>
+                        <h6>{{ user.email }}</h6>
+                        <small class="text-muted d-block pt-10">Roles</small>
+                        <h6>{{ user.getRolesName }}</h6>
+
+                        <small class="text-muted d-block pt-10">Etat du compte</small>
+                        <a href="" class="btn {{ user.getBans.count ? 'btn-danger' : 'btn-success' }}">{{ user.getBans.count ? 'Banni' : 'Non banni' }}</a>
+
+                        <small class="text-muted d-block pt-30">Réseaux social</small>
+                        <br>
+                        <button class="btn btn-icon btn-facebook"><i class="fab fa-facebook-f"></i></button>
+                        <button class="btn btn-icon btn-twitter"><i class="fab fa-twitter"></i></button>
+                        <button class="btn btn-icon btn-instagram"><i class="fab fa-instagram"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-7">
+                <div class="card">
+                    <ul class="nav nav-pills custom-pills" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active show" id="pills-profile-tab" data-toggle="pill" href="#profil" role="tab" aria-controls="pills-profile" aria-selected="true">Profil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#courses" role="tab" aria-controls="pills-courses" aria-selected="false">Cours</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-setting-tab" data-toggle="pill" href="#permissions" role="tab" aria-controls="pills-permissions" aria-selected="false">Editer permissions</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade active show" id="profil" role="tabpanel" aria-labelledby="pills-profile-tab">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3 col-6"> <strong>Nom complet</strong>
+                                        <br>
+                                        <p class="text-muted">{{ user.firstname }} {{ user.lastname }}</p>
+                                    </div>
+                                    <div class="col-md-3 col-6"> <strong>Adresse email</strong>
+                                        <br>
+                                        <p class="text-muted">{{ user.email }}</p>
+                                    </div>
+                                    <div class="col-md-3 col-6"> <strong>Création du compte</strong>
+                                        <br>
+                                        <p class="text-muted">{{ user.createdAt | date('d/m/Y à h:m') }}</p>
+                                    </div>
+                                    <div class="col-md-3 col-6"> <strong>Dernière connexion connue</strong>
+                                        <br>
+                                        <p class="text-muted">{{ user.lastLogAt | date('d/m/Y à h:m') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="pills-profile-tab">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            {% if coursesRegisters.count %}
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Nom du cours</th>
+                                                        <th>Catégorie</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for coursesRegister in coursesRegisters %}
+                                                        <tr>
+
+                                                            <td>{{ coursesRegister.course.name }}</td>
+                                                            <td>{{ coursesRegister.course.category.name }}</td>
+                                                            <td><a onclick="return confirm('Êtes-vous sûre de vouloir supprimer cet utilisateur de ce cours ?')" href="{{ path('delCourseRegister', {id:coursesRegister.id}) }}" class="btn btn-icon btn-danger mb-1 text-light"><i class="ik ik-trash-2"></i></a></td>
+                                                        </tr>
+                                                    {% endfor %}
+
+                                                    </tbody>
+                                                </table>
+                                            {% else %}
+                                                <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                                                    <strong>Info!</strong> Aucun cours inscrit.
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <i class="ik ik-x"></i>
+                                                    </button>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="permissions" role="tabpanel" aria-labelledby="pills-permissions-tab">
+                            <div class="card-body">
+                                <h3>Modifier permissions</h3>
+                                <hr>
+                                <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                                    <strong>Info!</strong> Cliquez sur le roles que vous désirez attribuer.
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <i class="ik ik-x"></i>
+                                    </button>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-center mt-10">
+                                        <br>
+                                        <a href="{{ path('promoteAdmin', {id:user.id, role: "ROLE_USER"}) }}" class="btn {{ user.getRolesName == 'Utilisateur' ? 'btn-success' : 'btn-dark' }}">Utilisateur</a>
+                                        <a href="{{ path('promoteAdmin', {id:user.id, role: "ROLE_ADMIN"}) }}" class="btn {{ user.getRolesName == 'Administrateur' ? 'btn-success' : 'btn-dark' }}">Administrateur</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

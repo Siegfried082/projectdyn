@@ -1,0 +1,50 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-uppercase">Liste des commentaires signalés</h2>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="card">
+            <div class="card-body">
+                <table id="advanced_table" class="table">
+                    <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Commentaires</th>
+                        <th>Evaluation</th>
+                        <th>Utilisateur</th>
+                        <th>Actions</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for comment in comments %}
+                        <tr>
+                            <td>{{ comment.id }}</td>
+                            <td>{{ comment.content }}</td>
+                            <td>
+                                        <span>
+                                            {% include 'partials/ratingAdmin.html.twig' with {'rating' : comment.rating} %}
+                                        </span>
+                            </td>
+                            <td><a href="{{ path('showUser', {id:comment.author.id}) }}">{{ comment.author.name }}</a></td>
+                            <td> <a href="{{ path('acp_Message_Comment', {id:comment.id}) }}" class="btn btn-icon btn-warning mb-1 text-light"><i class="ik ik-delete"></i></a></td>
+                            <td></td>
+
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Profil{% endblock %}
+
+{% block body %}
+    <!-- Latest courses -->
+    <main class="container">
+        <div class="container">
+            <div class="main-body">
+
+                <h2 class="my-5">Edition du commentaires</h2>
+                {%if form is defined %}
+                    {{ form_start(form) }}
+                    {{ form_row(form.rating) }}
+                    {{ form_row(form.content) }}
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                    {{form_end(form)}}
+                {% endif %}
+
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

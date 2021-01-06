@@ -69,6 +69,10 @@ class SecurityAuthenticator extends AbstractFormLoginAuthenticator implements Pa
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
+        if (!$user->getBans()){
+            throw new CustomUserMessageAuthenticationException('Votre compte a été banni.');
+        }
+
         if (!$user) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Email could not be found.');

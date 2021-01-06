@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Profil{% endblock %}
+
+{% block body %}
+    <!-- Latest courses -->
+    <main class="container">
+        <div class="container">
+            <div class="main-body">
+
+                <h2 class="my-5">Mon panier</h2>
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Info!</strong> {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="ik ik-x"></i>
+                        </button>
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('danger') %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Info!</strong> {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="ik ik-x"></i>
+                        </button>
+                    </div>
+                {% endfor %}
+
+                {% for cart in carts %}
+
+                    {% if cart.registered == 0 %}
+                        <div class="list-group">
+                            <div href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1"><i class="icofont-cart"></i> - {{ cart.course.name }}</h5>
+                                </div>
+                                <p>Chargé de cours: {{ cart.course.teacher ? cart.course.teacher.name : 'Aucun' }}</p>
+                                Price: {{ cart.course.price }}€<br>
+                                Durée du cours: {{ cart.course.duration }}<br>
+                                Jour du cours: {{ cart.course.schedule }}
+                                <hr>
+                                <div class="text-right">
+                                    <a onclick="return confirm('Êtes-vous sûre de vouloir supprimer ce cours du panier ?')" href="{{ path('delCart', {id:cart.id}) }}" class="btn btn-danger text-light"><i class="icofont-trash"></i></a>
+                                    <a href="{{ path('cartValidation', {id:cart.id}) }}" class="btn btn-primary float-right">Valider</a>
+                                </div>
+
+                            </div>
+                            <br>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
