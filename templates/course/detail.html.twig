@@ -101,7 +101,11 @@
                                                         {% if comment.report %}
                                                             <p class="text-right text-muted"><i class="icofont-alarm"></i></p>
                                                         {% else %}
-                                                            <h4 class="text-right"><a href="{{ path('reportComment', {id:comment.id}) }}" onclick="return confirm('Êtes-vous sûre de vouloir signaler ce commentaire ?')"><i class="icofont-alarm text-danger"></i></a></h4>
+                                                            <h4 class="text-right">
+                                                                <a href="{{ path('reportComment', {id:comment.id}) }}" onclick="return confirm('Êtes-vous sûre de vouloir signaler ce commentaire ?')">
+                                                                    <i class="icofont-alarm text-danger"></i>
+                                                                </a>
+                                                            </h4>
                                                         {% endif %}
                                                         
                                                     {% endif %}
